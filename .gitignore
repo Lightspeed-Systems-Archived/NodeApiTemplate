@@ -1,0 +1,5 @@
+node_modules
+testing.js
+ignore/
+.vscode
+.envrc

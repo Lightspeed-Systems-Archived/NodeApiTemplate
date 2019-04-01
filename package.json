@@ -1,0 +1,28 @@
+{
+  "name": "node-api-template",
+  "version": "1.0.0",
+  "description": "Node API Framework for Lightspeed (with JWT)",
+  "repository": "https://github.com/Lightspeed-Systems/NodeApiTemplate",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "author": "Kellen Hawley",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "aws-sdk": "^2.395.0",
+    "axios": "^0.17.1",
+    "base-64": "^0.1.0",
+    "claudia-api-builder": "^3.0.1",
+    "form-data": "^2.3.2",
+    "js-sha512": "^0.8.0",
+    "jsonwebtoken": "^8.3.0",
+    "relay-log": "git@github.com:Lightspeed-Systems/RelayLog.git#1.1.3"
+  },
+  "devDependencies": {
+    "eslint": "3.19.0",
+    "babel-eslint": "*",
+    "rewire": "^3.0.2"
+  }
+}

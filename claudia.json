@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "node-api-template-executor",
+    "name": "node-api-template",
+    "region": "us-west-2"
+  },
+  "api": {
+    "id": "an-id-goes-here",
+    "module": "app"
+  }
+}
