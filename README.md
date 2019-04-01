@@ -16,8 +16,10 @@ In order to install the necessary node modules for testing, run `npm install`. T
 1. Create a new Lambda function from the `microservice-http-endpoint` blueprint.
   a. Name the function based on the github repository for clarity, eg `classroom-api`
   a. Choose to `create a new role from AWS policy templates` and name it based on the github repository, eg `classroom-api-executor`.
-  a. Make sure the `Simple microservice permissions` and `Basic Lambda@Edge permissions (for CloudFront trigger)` policy templates are selected.
+  a. Make sure the `Basic Lambda@Edge permissions (for CloudFront trigger)` policy template is selected.
   a. For the API Gateway Trigger, select `Create a new API` with Security set to `Open` (since we'll be using JWTs for authentication), and enable metrics and error logging under Additional Settings.
+1. Go to to IAM Management -> Roles in AWS and navigate to the newly created Roles
+  a. Choose `Attach Policy` and find the RelayResources policy to attach.
 1. Update `claudia.json`
   a. Update `lambda -> role` with the name of the role you created (eg `classroom_api-executor`).
   a. Update `lambda -> name` with the name of the function itself (eg `classroom-api`).
