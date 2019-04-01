@@ -23,6 +23,7 @@
   "devDependencies": {
     "eslint": "3.19.0",
     "babel-eslint": "*",
-    "rewire": "^3.0.2"
+    "rewire": "^3.0.2",
+    "lodash": ">=4.17.11"
   }
 }
