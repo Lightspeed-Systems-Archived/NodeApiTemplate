@@ -2,9 +2,7 @@ const JWT_VALID_SECONDS = 14 * 24 * 60 * 60; //14 days
 const ONE_HOUR = 60 * 60;
 
 const FormData = require('form-data');
-const Sequelize = require('sequelize');
 const Base64 = require('base-64');
-const Op = Sequelize.Op;
 
 //
 // * AUTH CHALLENGE

@@ -13,7 +13,15 @@ In order to install the necessary node modules for testing, run `npm install`. T
 
 ## Deploying
 
-1. Update `claudia.json` with the correct role, name, and api id.
+1. Create a new Lambda function from the `microservice-http-endpoint` blueprint.
+  a. Name the function based on the github repository for clarity, eg `classroom-api`
+  a. Choose to `create a new role from AWS policy templates` and name it based on the github repository, eg `classroom-api-executor`.
+  a. Make sure the `Simple microservice permissions` and `Basic Lambda@Edge permissions (for CloudFront trigger)` policy templates are selected.
+  a. For the API Gateway Trigger, select `Create a new API` with Security set to `Open` (since we'll be using JWTs for authentication), and enable metrics and error logging under Additional Settings.
+1. Update `claudia.json`
+  a. Update `lambda -> role` with the name of the role you created (eg `classroom_api-executor`).
+  a. Update `lambda -> name` with the name of the function itself (eg `classroom-api`).
+  a. Update `api -> id` with the id of the API Gateway, which you can find by navigating to Amazon API Gateway in AWS, clicking your freshly made API, and copying it from inside the paranthesis in the breadcrumbs (eg if the page header contains `relay-co-api (gm4nyg31l2)` the id is `gm4nyg31l2`)
 1. Install Claudia globally (`npm install -g claudia`).
 1. Deploy from the project root directory with `./deploy.sh development`.
 

@@ -26,28 +26,6 @@ module.exports.configure = function(verb, path, args, cb) {
             return;
           }
         }
-        if (args.requires_customer_db) {
-          if (request.normalizedHeaders.customerid) {
-            customerId = request.normalizedHeaders.customerid;
-          } else {
-            if (typeof(request.jwtPayload) === 'undefined') { throw new Error('customerId required if jwt ignored');}
-            customerId = request.jwtPayload.data.cId;
-          }
-
-          request.customerId = customerId;
-          const db = new Models.CustomerDB(customerId);
-          return db.Init().then(() => {
-            request.db = db;
-            return Promise.all([cb(request)]).then((data) => {
-              resolve(data[0]);
-            }).catch((e) => {
-              reject(e);
-            });
-          }).catch((e) => {
-            RelayLog.error('[documentedApi] err:', e.message + '\n' + e.stack);
-            resolve(new api.ApiResponse(e.message, {'Content-Type': 'text/plain'}, 500));
-          });
-        }
         return Promise.all([cb(request)]).then((data) => {
           resolve(data[0]);
         }).catch((e) => {
@@ -56,24 +34,8 @@ module.exports.configure = function(verb, path, args, cb) {
       } catch (e) {
         reject(e);
       }
-    }).then((resp) => {
-      try {
-        if (typeof(request.db) !== 'undefined') {
-          request.db.connection.close();
-        }
-      } catch (error) {
-        RelayLog.error('[documentedApi] err:', error.message + '\n' + error.stack);
-      }
-      return resp;
     }).catch((error) => {
       RelayLog.error('[documentedApi] err:', error.message + '\n' + error.stack);
-      try {
-        if (typeof(request.db) !== 'undefined') {
-          request.db.connection.close();
-        }
-      } catch (error) {
-        RelayLog.error('[documentedApi] err:', error.message + '\n' + error.stack);
-      }
       return new api.ApiResponse(error.message, {'Content-Type': 'text/plain'}, 500);
     });
   }, {
