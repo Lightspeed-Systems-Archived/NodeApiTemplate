@@ -1,3 +1,4 @@
+const sha512 = require('js-sha512');
 function getUser(email, password) {
   const params = {
     Key: {

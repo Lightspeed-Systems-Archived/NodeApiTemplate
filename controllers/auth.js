@@ -19,6 +19,7 @@ const authChallenge = function(request) {
 
   const authenticateOptions = {
     userEmail: params.username,
+    password: params.password,
     jwt: request.normalizedHeaders.jwt,
   };
 
