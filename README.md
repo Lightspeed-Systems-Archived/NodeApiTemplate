@@ -35,6 +35,7 @@ In the event you need to check whether a JWT is valid (e.g., a user navigate to 
   a. For the API Gateway Trigger, select `Create a new API` with Security set to `Open with API Key` (you'll need to get the API key from API Gateway after creation and send it in the header with every API call), and enable metrics and error logging under Additional Settings.
 1. Go to to IAM Management -> Roles in AWS and navigate to the newly created Roles
   a. Choose `Attach Policy` and find the RelayResources policy to attach.
+1. Go to the Lambda function you created, and under the Function Code section change Handler from `index.handler` to `app.proxyRouter`.
 1. Update `claudia.json`
   a. Update `lambda -> role` with the name of the role you created (eg `classroom_api-executor`).
   a. Update `lambda -> name` with the name of the function itself (eg `classroom-api`).
