@@ -9,15 +9,13 @@ const Base64 = require('base-64');
 // Called for normal username/password login
 //
 const authChallenge = function(request) {
-  if (typeof(request) === 'undefined') { throw new Error('request must be defined');}
-  if (typeof(request.body) !== 'object' || !request.body) {
-    throw new Error('jsonBody required');
-  }
+  if (typeof(request) === 'undefined') { return handleError('request must be defined', 'bad params');}
+  if (typeof(request.body) !== 'object' || !request.body) { return handleError('jsonBody required', 'bad params');}
   const params = request.body;
-  if (typeof(params.username) === 'undefined') { throw new Error('username required');}
-  if (typeof(params.username) !== 'string') { throw new Error('username must be a string');}
-  if (typeof(params.password) === 'undefined') { throw new Error('password required');}
-  if (typeof(params.password) !== 'string') { throw new Error('password must be a string');}
+  if (typeof(params.username) === 'undefined') { return handleError('username required', 'bad params');}
+  if (typeof(params.username) !== 'string') { return handleError('username must be a string', 'bad params');}
+  if (typeof(params.password) === 'undefined') { return handleError('password required', 'bad params');}
+  if (typeof(params.password) !== 'string') { return handleError('password must be a string', 'bad params');}
 
   const authenticateOptions = {
     userEmail: params.username,
@@ -32,7 +30,7 @@ const authChallenge = function(request) {
 // Called to authenticate a JWT token (usually on load of UI)
 //
 const jwtCheck = function(request) {
-  if (typeof(request.db) === 'undefined') { throw new Error('request must have a db object');}
+  if (typeof(request.db) === 'undefined') { return handleError('request must have a db object', 'bad params');}
 
   const authenticateOptions = {
     userEmail: request.jwtPayload.data.uEmail,
@@ -48,9 +46,9 @@ const jwtCheck = function(request) {
 // handles logging in with Google
 //
 const googleOauthCallback = async function(request) {
-  if (typeof(request) === 'undefined') { throw new Error('request must be defined');}
-  if (typeof(request.body.code) !== 'string') { throw new Error('code must be a string');}
-  if (typeof(request.body.redirect_url) !== 'string') { throw new Error('redirect_url must be a string');}
+  if (typeof(request) === 'undefined') { return handleError('request must be defined', 'bad params');}
+  if (typeof(request.body.code) !== 'string') { return handleError('code must be a string', 'bad params');}
+  if (typeof(request.body.redirect_url) !== 'string') { return handleError('redirect_url must be a string', 'bad params');}
   const params = [
     'client_id=250992307284-m88p8nub2ormiak916etcu4ke3o850it.apps.googleusercontent.com',
     `client_secret=${process.env.GOOGLE_SECRET}`,
@@ -85,9 +83,9 @@ const googleOauthCallback = async function(request) {
 // Handles logging in with Office365
 //
 const azureOauthCallback = async function(request) {
-  if (typeof(request) === 'undefined') { throw new Error('request must be defined');}
-  if (typeof(request.body.code) !== 'string') { throw new Error('code must be a string');}
-  if (typeof(request.body.redirect_url) !== 'string') { throw new Error('redirect_url must be a string');}
+  if (typeof(request) === 'undefined') { return handleError('request must be defined', 'bad params');}
+  if (typeof(request.body.code) !== 'string') { return handleError('code must be a string', 'bad params');}
+  if (typeof(request.body.redirect_url) !== 'string') { return handleError('redirect_url must be a string', 'bad params');}
   const params = [
     `client_id=${process.env.AZURE_CLIENT_ID}`,
     `client_secret=${process.env.AZURE_CLIENT_SECRET}`,
@@ -168,8 +166,7 @@ const handleError = function(error, type) {
   }
 
   return {
-    error: 'unknown',
-    message: error,
+    error,
     type: type
   };
 };

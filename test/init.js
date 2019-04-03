@@ -10,6 +10,5 @@ global.devRewire = function(path) {
 global.rewire = require('rewire');
 global.jwt = require('jsonwebtoken');
 global.axios = require('axios');
-require('relay-models');
 const ApiBuilder = require('claudia-api-builder');
 global.api = new ApiBuilder();

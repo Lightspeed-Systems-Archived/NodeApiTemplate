@@ -1,5 +1,4 @@
 'use strict';
-require('../dynamo_models');
 
 const fs = require('fs');
 const Routes = require('./routes');

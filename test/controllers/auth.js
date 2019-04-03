@@ -66,46 +66,53 @@ describe('Controllers/Auth', () => {
             });
           });
         });
-        it('should throw an error if no request object', () => {
-          assert.throws(
-            Auth.routes[''].post.fn.bind(null),
-            /request must be defined/
+        it('should return an error if no request object', async () => {
+          const data = await Auth.routes[''].post.fn();
+          assert.deepEqual(
+            data,
+            {error: 'request must be defined', type: 'bad params'}
           );
         });
-        it('should throw an error if no jsonBody is passed', () => {
-          assert.throws(
-            Auth.routes[''].post.fn.bind(null, {}),
-            /jsonBody required/
+        it('should return an error if no jsonBody is passed', async () => {
+          const data = await Auth.routes[''].post.fn({});
+          assert.deepEqual(
+            data,
+            {error: 'jsonBody required', type: 'bad params'}
           );
         });
-        it('should throw an error if the body is not an object', () => {
-          assert.throws(
-            Auth.routes[''].post.fn.bind(null, {body: 123}),
-            /jsonBody required/
+        it('should return an error if the body is not an object', async () => {
+          const data = await Auth.routes[''].post.fn({body: 123});
+          assert.deepEqual(
+            data,
+            {error: 'jsonBody required', type: 'bad params'}
           );
         });
-        it('should throw an error if no username is passed', () => {
-          assert.throws(
-            Auth.routes[''].post.fn.bind(null, {body: {}}),
-            /username required/
+        it('should return an error if no username is passed', async () => {
+          const data = await Auth.routes[''].post.fn({body: {}});
+          assert.deepEqual(
+            data,
+            {error: 'username required', type: 'bad params'}
           );
         });
-        it('should throw an error if username is not a string', () => {
-          assert.throws(
-            Auth.routes[''].post.fn.bind(null, {body: {username: 1}}),
-            /username must be a string/
+        it('should return an error if username is not a string', async () => {
+          const data = await Auth.routes[''].post.fn({body: {username: 1}});
+          assert.deepEqual(
+            data,
+            {error: 'username must be a string', type: 'bad params'}
           );
         });
-        it('should throw an error if no password is passed', () => {
-          assert.throws(
-            Auth.routes[''].post.fn.bind(null, {body: {username: 'test'}}),
-            /password required/
+        it('should return an error if no password is passed', async () => {
+          const data = await Auth.routes[''].post.fn({body: {username: 'test'}});
+          assert.deepEqual(
+            data,
+            {error: 'password required', type: 'bad params'}
           );
         });
-        it('should throw an error if password is not a string', () => {
-          assert.throws(
-            Auth.routes[''].post.fn.bind(null, {body: {username: 'test', password: 1}}),
-            /password must be a string/
+        it('should return an error if password is not a string', async () => {
+          const data = await Auth.routes[''].post.fn({body: {username: 'test', password: 1}});
+          assert.deepEqual(
+            data,
+            {error: 'password must be a string', type: 'bad params'}
           );
         });
       });
@@ -163,22 +170,28 @@ describe('Controllers/Auth', () => {
           });
         });
         describe('validations', () => {
-          it('should throw an error if no request is passed', () => {
-            assert.throws(
-              Auth.routes.google_callback.post.fn,
-              /request must be defined/
+          it('should return an error if no request is passed', async () => {
+            const data = await Auth.routes.google_callback.post.fn();
+            assert.deepEqual(
+              data,
+
+              {error: 'request must be defined', type: 'bad params'}
             );
           });
-          it('should throw an error if there is no code', () => {
-            assert.throws(
-              Auth.routes.google_callback.post.fn.bind(null, {db: {}, body: {}}),
-              /code must be a string/
+          it('should return an error if there is no code', async () => {
+            const data = await Auth.routes.google_callback.post.fn({db: {}, body: {}});
+            assert.deepEqual(
+              data,
+
+              {error: 'code must be a string', type: 'bad params'}
             );
           });
-          it('should throw an error if there is no redirect_url', () => {
-            assert.throws(
-              Auth.routes.google_callback.post.fn.bind(null, {db: {}, body: {code: 'abc'}}),
-              /redirect_url must be a string/
+          it('should return an error if there is no redirect_url', async () => {
+            const data = await Auth.routes.google_callback.post.fn({db: {}, body: {code: 'abc'}});
+            assert.deepEqual(
+              data,
+
+              {error: 'redirect_url must be a string', type: 'bad params'}
             );
           });
         });
@@ -237,22 +250,25 @@ describe('Controllers/Auth', () => {
           });
         });
         describe('validations', () => {
-          it('should throw an error if no request is passed', () => {
-            assert.throws(
-              Auth.routes.azure_callback.post.fn,
-              /request must be defined/
+          it('should return an error if no request is passed', async () => {
+            const data = await Auth.routes.azure_callback.post.fn();
+            assert.deepEqual(
+              data,
+              {error: 'request must be defined', type: 'bad params'}
             );
           });
-          it('should throw an error if there is no code', () => {
-            assert.throws(
-              Auth.routes.azure_callback.post.fn.bind(null, {db: {}, body: {}}),
-              /code must be a string/
+          it('should return an error if there is no code', async () => {
+            const data = await Auth.routes.azure_callback.post.fn({db: {}, body: {}});
+            assert.deepEqual(
+              data,
+              {error: 'code must be a string', type: 'bad params'}
             );
           });
-          it('should throw an error if there is no redirect_url', () => {
-            assert.throws(
-              Auth.routes.azure_callback.post.fn.bind(null, {db: {}, body: {code: 'abc'}}),
-              /redirect_url must be a string/
+          it('should return an error if there is no redirect_url', async () => {
+            const data = await Auth.routes.azure_callback.post.fn({db: {}, body: {code: 'abc'}});
+            assert.deepEqual(
+              data,
+              {error: 'redirect_url must be a string', type: 'bad params'}
             );
           });
         });
