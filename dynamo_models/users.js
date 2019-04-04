@@ -67,7 +67,7 @@ function authenticate(password, user) {
     user.Item.encrypted_password &&
     user.Item.encrypted_password.S === digest &&
     user.Item.user_type &&
-    user.Item.user_type.N === 2
+    user.Item.user_type.N === '2'
   );
 }
 
