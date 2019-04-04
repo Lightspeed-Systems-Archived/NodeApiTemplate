@@ -66,8 +66,8 @@ function authenticate(password, user) {
     passwordSalt &&
     user.Item.encrypted_password &&
     user.Item.encrypted_password.S === digest &&
-    data.Item.user_type &&
-    data.Item.user_type.N === 2
+    user.Item.user_type &&
+    user.Item.user_type.N === 2
   );
 }
 
