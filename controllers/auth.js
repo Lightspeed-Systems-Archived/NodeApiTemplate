@@ -31,8 +31,6 @@ const authChallenge = function(request) {
 // Called to authenticate a JWT token (usually on load of UI)
 //
 const jwtCheck = function(request) {
-  if (typeof(request.db) === 'undefined') { return handleError('request must have a db object', 'bad params');}
-
   const authenticateOptions = {
     userEmail: request.jwtPayload.data.uEmail,
     customerId: request.jwtPayload.data.cId,
@@ -189,7 +187,6 @@ module.exports.routes = {
   jwt_check: {
     get: {
       docs: {
-        requires_customer_db: true,
         desc: 'checks for authentic jwt'
       },
       fn: jwtCheck
